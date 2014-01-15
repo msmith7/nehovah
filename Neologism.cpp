@@ -96,8 +96,8 @@ void Neologism::scoreWord()
       k--;
    }
 
-string usedPre = word.substr(0,i);
-string usedSuf = suf.substr(0,j);
+   string usedPre = word.substr(0,i);
+   string usedSuf = suf.substr(0,j);
 
    //Syllalbe exchange. only in words without the whole prefix
    if (word.find(suf)==string::npos)
@@ -107,17 +107,16 @@ string usedSuf = suf.substr(0,j);
       //is there any overlap?
       while (j > 0 && i>0 && word[i-1] == suf[j-1])
       {
-//      cout << word << " overlap " << pre << " " << suf << " " <<i << " " << word[i-1] << " " << j << " " << suf[j-1] << " DUDE\t" << word.substr(0,i) << " " << suf.substr(0,j) << endl;
          i--;
          j--;
          overlap++;
          score++;
       }
-//return;
+
       //count the number of vowels
       bool wordVowel = false;
       bool sufVowel = false;
-bool last = false;
+      bool last = false;
       do
       {
          last = (i==-1 || j ==-1);
@@ -141,8 +140,8 @@ bool last = false;
             if (j >= 0 && sufVowel && (suf[j] == 'a' || suf[j] == 'e' || suf[j] == 'j' || suf[j] == 'o' || suf[j] == 'u' || suf[j] == 'y'))
                j--;
          }
-if (last) break;
-      }while(i > -1 || j > -1); //&& ((wordVowel && sufVowel) || (!wordVowel && !sufVowel)));
+         if (last) break;
+      }while(i > -1 || j > -1);
 
       //if there is overlap, adjust the prefix and sufix
       if (overlap > 0)
@@ -166,16 +165,10 @@ if (last) break;
       }
       
    }
-if (i ==-1&& j ==-1)
-{
-//   cout << "Syllables Match " << word << " " << suf << " " << pre << " " << usedPre << " " << usedSuf << endl;
-   score++;
-}
-//else
-//   cout << "Syllables NOT Match " << word << " " << suf << " " << pre << " " << usedPre << " " << usedSuf << " " << i << " " << j << endl;
-
-//cout << score << word << " " << pre << " " << suf << endl;
-
+   if (i ==-1&& j ==-1)
+   {
+      score++;
+   }
 }
 
 ostream& operator<<(ostream &stream, const Neologism& neo)
