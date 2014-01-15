@@ -1,0 +1,20 @@
+This is the code base that runs Nehovah to generate nologisms based on two
+source words. The code is "AS_IS" and no guarantees are made as to its
+functionality and/or readability. But please ask any questions if you are
+interested in using this code: nehovah@axon.cs.byu.edu
+
+The code compiles using this command:
+
+g++ testDriver.cpp neo.cpp Neologism.cpp PopWord.cpp WNDictionaryTree.cpp WNTNode.cpp WNTreeCreator.cpp Word.cpp web/MoreWordsSearch.cpp web/TopTensSearch.cpp -lboost_regex -lcurl -lwordnet -o nehovah
+
+and
+
+g++ sort.cpp -o sort
+
+The commands are ran as:
+
+./nehovah <sourceWord1> <sourceWord2>
+
+and
+
+./sort <fileLocationOfNeologisms> <popCultureWeight> <conceptWeight> <syllableWeight> <uniqueWeight>
