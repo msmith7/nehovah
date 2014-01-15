@@ -15,12 +15,6 @@
 #include "neo.h"
 
 using namespace std;
-/*
-bool compareWords(const word& first, const word& second)
-{
-   return first.word != second.word;
-}
-*/
 
 struct DereferenceLess
 {
@@ -54,7 +48,6 @@ vector<Neologism> combine(vector< vector <string> > words, vector<vector<PopWord
       WNTreeCreator wnt = WNTreeCreator();
       for (int j=0; j<words[i].size(); j++)
       {
-//         cout << i << " " << j << " " << words[i][j] << endl;
          wnt.parseWordSimple(words[i][j]);
       }
       stemmedWords.push_back(wnt.getStemWords());
@@ -92,7 +85,6 @@ vector<Neologism> combine(vector< vector <string> > words, vector<vector<PopWord
                      int val = 1;
                      if (prefix1[preIt].word.size() < val)
                         val = prefix1[preIt].word.size();
-//cout << "Testing \t" << suffix2[sufIt].word << " " << suffix2[sufIt].score << endl;
                      WNTNode *node = wnt->root->getWord(prefix1[preIt].word.substr(prefix1[preIt].word.size()-val) + suffix2[sufIt].word.substr(0,1));
                      if (node != NULL)
                      {
@@ -103,7 +95,6 @@ vector<Neologism> combine(vector< vector <string> > words, vector<vector<PopWord
                            neo->setPrefix(stemmedWords[i][j]);
                            neo->setSuffix(stemmedWords[x][y]);
                            unique.insert(neo);
-//                           neo.scoreWord();
                         }
                      }
                   }
@@ -174,7 +165,7 @@ vector<string> queryWordNet(string word, int searchType)
       
       //Get the information about the word
       SynsetPtr synSet = findtheinfo_ds((char*)word.c_str(),j,searchType,ALLSENSES);
-      if (synSet != NULL)
+//      if (synSet != NULL)
 //      cout << "Synset: " << synSet->hereiam << " " << j << " " << word << endl;
 
       //Loop through the synsets
@@ -221,16 +212,11 @@ vector<string> queryWordNet(string word, int searchType)
       //Free memory occupied by the synset
       free_syns(synSet);
 
-      //An alternative way to acces and display the information
-      //findtheinfo_ds provides more usability to access the synsets
-//      printf("testing: %s\n", findtheinfo((char*)word.c_str(),j,searchType,ALLSENSES));
    }
 
    set<string>::iterator it;
    for (it=unique_words.begin(); it!=unique_words.end(); it++)
    {
-      //it->replace(0,1,tolower((int)it->at(0)));
-//      putchar(it->at(0));
       string dude = *it;
       std::transform(dude.begin(), dude.end(), dude.begin(), ::tolower);
       words.push_back(dude);//*it);
@@ -257,7 +243,6 @@ double score(string word)
    int size = word.size();
    //std::transform(word.begin(), word.end(), word.begin(), ::tolower);
    WNTNode *node = wnt->root->getWord(word);
-//   cout << word << endl;
    int sum=0;
    int pre=0;
    int suf=0;
@@ -278,48 +263,20 @@ if (word.size() >=length)
          break;
       }
       //Find the best prefix and suffix
-//         cout << word.substr(i,3) << " " << i << " " << (i+2) << endl;
-//         sum+=node->useCount+node->uniqueCount;
       if(node->useCount == 0) 
          return 0;
       
-/*
-         if ((node=wnt->root->getWord(word.substr(0,length+i))) != NULL)
-         {
-//            pre+=node->prefixCount;
-            if (node->prefixCount >0)
-               prefix=word.substr(0,length=i);
-         }
-//printf("%d\t%s\t", pre, word.substr(0,length+i).c_str());
-         if ((node=wnt->root->getWord(word.substr(i))) != NULL)
-         {
-//            suf=node->suffixCount;
-            if (node->suffixCount >0 && needSuf)
-            {
-               needSuf=false;
-               suffix=word.substr(i);
-            }
-         }
-*/
-//printf("%d\t%s\n", suf, word.substr(i).c_str());
-
-//         cout << "UseCount\t" << node->useCount << endl;
-//         cout << "UniCount\t" << node->uniqueCount << endl;
-         if (i ==0)
-         {
-//            cout << "PreCount\t" << node->prefixCount << endl;
-            pre = node->prefixCount;
-         }
-         else if(i == word.size()-3)
-         {
-//            cout << "SufCount\t" << node->suffixCount << endl;
-            suf=node->suffixCount;
-         }
+      if (i ==0)
+      {
+         pre = node->prefixCount;
+      }
+      else if(i == word.size()-3)
+      {
+         suf=node->suffixCount;
+      }
 
    }
 }
-//   if(suffix.size() >0 && prefix.size() > 0 && suffix.size() < word.size())
-//   printf("%f\t%s\t%s\t%s\n",(sum * 1.0/(word.size()-length + 1)),word.c_str(),prefix.c_str(),suffix.c_str());
    if (pre ==0)
       return 0;
 
@@ -327,20 +284,7 @@ if (word.size() >=length)
    
    return 1;
    return (sum * 1.0/(word.size()-length + 1)) + pre + suf;
-/*
-   if (node == NULL)
-   {
-      cout << "\tNULL\n";
-   }
-   else
-   {
-      cout << "WordCount\t" << word.size() << endl;
-      cout << "UseCount\t" << node->useCount << endl;
-      cout << "PreCount\t" << node->prefixCount << endl;
-      cout << "SufCount\t" << node->suffixCount << endl;
-      cout << "UniCount\t" << node->uniqueCount << endl;
-   }
-*/
+
    //Look for prefix and suffix scores/counts
    for (int i =1; i<size; i++)
    {
