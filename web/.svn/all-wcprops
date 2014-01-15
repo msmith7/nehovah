@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 30
+/svn/!svn/ver/40/trunk/src/web
+END
+TopTensSearch.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/37/trunk/src/web/TopTensSearch.cpp
+END
+MoreWordsSearch.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/40/trunk/src/web/MoreWordsSearch.cpp
+END
+TopTensSearch.h
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/22/trunk/src/web/TopTensSearch.h
+END
+MoreWordsSearch.h
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/40/trunk/src/web/MoreWordsSearch.h
+END
